@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/OpenPayLab.Api/OpenPayLab.Api.csproj" />
+    <Project Path="src/OpenPayLab.Application/OpenPayLab.Application.csproj" />
+    <Project Path="src/OpenPayLab.Domain/OpenPayLab.Domain.csproj" />
+    <Project Path="src/OpenPayLab.Infrastructure/OpenPayLab.Infrastructure.csproj" />
+  </Folder>
+</Solution>
