@@ -855,3 +855,6 @@ FodyWeavers.xsd
 
 # Official VS Code C# Dev Kit Extension exclusion
 #*.lscache
+
+# Jenkins agent credentials
+infra/jenkins/.env

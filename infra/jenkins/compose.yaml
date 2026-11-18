@@ -1,0 +1,44 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk21
+    container_name: openpaylab-jenkins
+    restart: unless-stopped
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - jenkins_home:/var/jenkins_home
+
+    mem_limit: 2g
+    cpus: 2.0
+
+  agent:
+    build:
+      context: ./agent
+      dockerfile: Dockerfile
+    image: openpaylab-jenkins-agent:dotnet10
+    container_name: openpaylab-agent
+    restart: unless-stopped
+    init: true
+
+    depends_on:
+      - jenkins
+
+    env_file:
+      - .env
+
+    environment:
+      JENKINS_URL: http://jenkins:8080/
+      JENKINS_WEB_SOCKET: "true"
+      JENKINS_AGENT_WORKDIR: /home/jenkins/agent
+
+    volumes:
+      - agent_workdir:/home/jenkins/agent
+
+    mem_limit: 2g
+    cpus: 2.0
+
+volumes:
+  jenkins_home:
+  agent_workdir:
