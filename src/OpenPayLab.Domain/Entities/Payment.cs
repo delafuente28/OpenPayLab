@@ -1,6 +1,4 @@
-using System;
-
-namespace OpenPayLab.Domain;
+namespace OpenPayLab.Domain.Entities;
 
 public class Payment
 {}

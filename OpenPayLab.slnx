@@ -5,4 +5,7 @@
     <Project Path="src/OpenPayLab.Domain/OpenPayLab.Domain.csproj" />
     <Project Path="src/OpenPayLab.Infrastructure/OpenPayLab.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/OpenPayLab.Domain.Tests/OpenPayLab.Domain.Tests.csproj" />
+  </Folder>
 </Solution>
