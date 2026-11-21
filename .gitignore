@@ -858,3 +858,6 @@ FodyWeavers.xsd
 
 # Jenkins agent credentials
 infra/jenkins/.env
+
+# Test results
+TestResults/
