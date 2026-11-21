@@ -35,7 +35,7 @@ pipeline
         {
             steps
             {
-                sh 'dotnet test OpenPayLab.slnx --configuration Release --no-build --no-restore'
+                sh 'dotnet test OpenPayLab.slnx --configuration Release --no-build --no-restore --logger "trx;LogFileName=tests.trx" --results-directory TestResults'
             }
         }
     }
