@@ -29,6 +29,83 @@ public class MoneyTests
     public void Check_NonNegativeAmountAreNotAllowed()
     {
         // Arrange & Act
-        Assert.Throws<ArgumentOutOfRangeException>(() => new Money(-100,"eur"));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new Money(-100, "eur"));
+    }
+
+    [Fact]
+    public void Check_ValueObjectsWithTheSameDataAreTheSame()
+    {
+        // Arrange
+        Money first = new Money(100, "EUR");
+        Money second = new Money(100, "EUR");
+
+        // Assert
+        Assert.Equal(first, second);
+    }
+
+    [Fact]
+    public void Check_ValueObjectsWithDistinctAmountDataAreDifferents()
+    {
+        // Arrange
+        Money first = new Money(100, "EUR");
+        Money second = new Money(200, "EUR");
+
+        // Assert
+        Assert.NotEqual(first, second);
+    }
+
+    [Fact]
+    public void Check_ValueObjectsWithDistinctCurrencyAreDifferents()
+    {
+        // Arrange
+        Money first = new Money(100, "EUR");
+        Money second = new Money(100, "USD");
+
+        // Assert
+        Assert.NotEqual(first, second);
+    }
+
+    [Fact]
+    public void Check_TwoHashesAreTheSame()
+    {
+        // Arrange
+        Money first = new Money(100, "EUR");
+        Money second = new Money(100, "EUR");
+
+        // Act
+        int firstHashCode = first.GetHashCode();
+        int secondHashCode = second.GetHashCode();
+
+        // Assert
+        Assert.Equal(firstHashCode, secondHashCode);
+    }
+
+    [Fact]
+    public void Check_TwoEqualMoneyValuesCreateOnlyOneElementInHashSet()
+    {
+        // Arrange
+        HashSet<Money> moneySet = new HashSet<Money>();
+        Money first = new Money(100, "EUR");
+        Money second = new Money(100, "EUR");
+
+        // Act
+        moneySet.Add(first);
+        moneySet.Add(second);
+
+        // Assert
+        int expected = 1;
+        int actual = moneySet.Count;
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void Check_ObjectsWithTheSameMoneyValueAreEqual()
+    {
+        // Arrange
+        object first = new Money(100, "EUR");
+        object second = new Money(100, "EUR");
+
+        // Act & Assert
+        Assert.True(first.Equals(second));
     }
 }
