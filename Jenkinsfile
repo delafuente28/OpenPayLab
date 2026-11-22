@@ -17,11 +17,19 @@ pipeline
                 checkout scm
             }
         }
+        stage('Clean Previous Test Results')
+        {
+            steps
+            {
+                sh 'rm -rf TestResults'
+            }
+        }
         stage('Restore')
         {
             steps
             {
                 sh 'dotnet restore OpenPayLab.slnx'
+                sh 'dotnet tool restore'
             }
         }
         stage('Build')
@@ -36,6 +44,24 @@ pipeline
             steps
             {
                 sh 'dotnet test OpenPayLab.slnx --configuration Release --no-build --no-restore --logger "trx;LogFileName=tests.trx" --results-directory TestResults'
+            }
+        }
+    }
+    post
+    {
+        always
+        {
+            script
+            {
+                if (fileExists('TestResults/tests.trx'))
+                {
+                    sh 'dotnet trx2junit TestResults/tests.trx'
+
+                    if (fileExists('TestResults/tests.xml'))
+                    {
+                        junit 'TestResults/tests.xml'
+                    }
+                }
             }
         }
     }
