@@ -108,4 +108,52 @@ public class MoneyTests
         // Act & Assert
         Assert.True(first.Equals(second));
     }
+
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    [InlineData(null)]
+    public void Check_EmptyCurrencyIsNotAllowed(string? currency)
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => new Money(100, currency!));
+    }
+
+    [Theory]
+    [InlineData("E")]
+    [InlineData("EU")]
+    [InlineData("EURO")]
+    public void Check_CurrencyMustContainExactlyThreeCharacters(string currency)
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => new Money(100, currency));
+    }
+
+    [Fact]
+    public void Check_MoneyComparedWithNullReturnsFalse()
+    {
+        // Arrange
+        Money money = new Money(100, "EUR");
+
+        // Act
+        bool result = money.Equals((Money?)null);
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void Check_ObjectsOfDifferentTypesAreNotEqual()
+    {
+        // Arrange
+        Money money = new Money(100, "EUR");
+        object other = "100 EUR";
+
+        // Act
+        bool result = money.Equals(other);
+
+        // Assert
+        Assert.False(result);
+    }
 }

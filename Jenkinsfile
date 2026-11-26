@@ -43,7 +43,7 @@ pipeline
         {
             steps
             {
-                sh 'dotnet test OpenPayLab.slnx --configuration Release --no-build --no-restore --logger "trx;LogFileName=tests.trx" --results-directory TestResults'
+                sh 'dotnet test OpenPayLab.slnx --configuration Release --no-build --no-restore --collect:"XPlat Code Coverage" --logger "trx;LogFileName=tests.trx" --results-directory TestResults'
             }
         }
     }
@@ -63,6 +63,9 @@ pipeline
                     }
                 }
             }
+
+            archiveArtifacts artifacts: 'TestResults/**/coverage.cobertura.xml',
+                 allowEmptyArchive: false
         }
     }
 }
