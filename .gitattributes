@@ -1,0 +1,8 @@
+# Default: normalize text files to LF
+* text=auto
+
+# Bash scripts must always use LF
+*.sh text eol=lf
+
+# Jenkins pipeline
+Jenkinsfile text eol=lf

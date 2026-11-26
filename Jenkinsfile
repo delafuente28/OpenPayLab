@@ -46,6 +46,13 @@ pipeline
                 sh 'dotnet test OpenPayLab.slnx --configuration Release --no-build --no-restore --collect:"XPlat Code Coverage" --logger "trx;LogFileName=tests.trx" --results-directory TestResults'
             }
         }
+        stage('Quality Gate')
+        {
+            steps
+            {
+                sh 'bash scripts/check-coverage.sh'
+            }
+        }
     }
     post
     {
