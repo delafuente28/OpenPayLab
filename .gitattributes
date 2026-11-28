@@ -6,3 +6,6 @@
 
 # Jenkins pipeline
 Jenkinsfile text eol=lf
+
+# Dockerfiles must always use LF
+Dockerfile text eol=lf
