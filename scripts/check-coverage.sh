@@ -12,7 +12,7 @@ REPORT=$(find TestResults -type f \
     ! -path "*/In/*" \
     -print -quit)
 
-if [ -z "$REPORT" ]; then
+if [[ -z "$REPORT" ]]; then
     echo "ERROR: Coverage report not found."
     exit 1
 fi
@@ -24,7 +24,7 @@ COVERAGE_LINE=$(grep -m1 '<coverage' "$REPORT" |
 COVERAGE_BRANCH=$(grep -m1 '<coverage' "$REPORT" |
     sed -n 's/.*branch-rate="\([0-9.]*\)".*/\1/p')
 
-if [ -z "$COVERAGE_LINE" ] || [ -z "$COVERAGE_BRANCH" ]; then
+if [[ -z "$COVERAGE_LINE" || -z "$COVERAGE_BRANCH" ]]; then
     echo "ERROR: Could not read coverage metrics."
     exit 1
 fi
